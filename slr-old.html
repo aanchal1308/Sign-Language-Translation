@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SignTheta - Sign Languge to Speech</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <link rel="icon" href="images/signtheta.png">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Access-Control-Allow-Methods" content="GET">
+    <link rel="stylesheet" href="assets/css/main.css" />
+</head>
+
+<body class="is-preload">
+    <!-- Header -->
+    <header id="header">
+        <a class="logo" href="index.html">SignTheta</a>
+        <navi>
+            <a href="#menu">Menu</a>
+        </navi>
+    </header>
+
+    <!-- navi -->
+    <navi id="menu">
+        <ul class="links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="elements.html">Elements</a></li>
+            <li><a href="generic.html">Generic</a></li>
+        </ul>
+    </navi>
+
+    <!-- Heading -->
+    <div id="heading">
+        <h1>Sign Language to speech conversion</h1>
+    </div>
+
+    <!-- Main -->
+    <section id="main" class="wrapper">
+        <div class="inner">
+            <div class="content">
+                <header>
+                    <h2>Video Output</h2>
+                </header>
+                <div>
+                    <button id="actionBtn">Start</button>
+                </div>
+                <!--<canvas id="canvasOutput"></canvas>
+                <canvas id="thresh"></canvas>-->
+                <p>Result</p>
+                <p>Prediction result</p>
+                <hr />
+                <!--<h3>Video input</h3>
+                <video id="video" width="300" height="225"></video>-->
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="inner">
+            <div class="content">
+                <section>
+                    <h3>Sign Language is a beautiful and expressive language</h3>
+                    <p> Sign Language conveys the message by using body language instead of the acoustic words.
+                        There are around 466 million people worldwide with hearing loss and 34 million of these are
+                        children.
+                        WHO factsheet states that teaching sign language will benefit children with hearing loss.</p>
+                </section>
+                <section>
+                    <h4>SignAll features</h4>
+                    <ul class="alt">
+                        <li><a href="#">Sign language recognition.</a></li>
+                        <li><a href="#">Speech to sign language conversion.</a></li>
+                        <li><a href="#">Learning sign language.</a></li>
+                        <!--<li><a href="#">Dolor pulvinar magna etiam.</a></li>-->
+                    </ul>
+                </section>
+                <section>
+                    <h4>Connect with us</h4>
+                    <ul class="plain">
+                        <li><a href="#"><i class="icon fa-twitter">&nbsp;</i>Twitter</a></li>
+                        <li><a href="#"><i class="icon fa-facebook">&nbsp;</i>Facebook</a></li>
+                        <li><a href="#"><i class="icon fa-instagram">&nbsp;</i>Instagram</a></li>
+                        <li><a href="#"><i class="icon fa-github">&nbsp;</i>Github</a></li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+    <!--<script async src="assets/js/opencv.js" type="text/javascript" onload="onCvLoaded();"></script>-->
+    <script>
+        var HttpClient = function () {
+            this.get = function (aUrl, aCallback) {
+                var anHttpRequest = new XMLHttpRequest();
+                anHttpRequest.onreadystatechange = function () {
+                    if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
+                        aCallback(anHttpRequest.responseText);
+                }
+
+                anHttpRequest.open("GET", aUrl, false);
+                anHttpRequest.send();
+
+            }
+        };
+        /*var ftext = "";
+        var client = new HttpClient();
+        client.get('http://127.0.0.1:5000/return-files', function (text) {
+            if (text === null) {
+                // An error occurred
+            }
+            else {
+                console.log(text);
+                ftext = text;
+            }
+        });*/
+        const actionBtn = document.getElementById('actionBtn');
+        let streaming = false;
+        actionBtn.addEventListener('click', () => {
+            if (streaming) {
+                actionBtn.textContent = 'Start';
+            } else {
+                var client = new HttpClient();
+                client.get('http://127.0.0.1:5000/recognize-gesture', function (response) {
+                    console.log(response);
+                });
+                streaming = True;
+                actionBtn.textContent = 'Stop';
+            }
+        });
+
+
+        /*function get_img_contour_thresh(img) {
+            let backproj = new cv.Mat();
+            let mask = new cv.Mat();
+            let hist = new cv.Mat();
+            let disc = new cv.Mat();
+            let res = new cv.Mat();
+            let thresh = new cv.Mat();
+            cv.cvtColor(img, img, cv.COLOR_BGR2HSV)
+            let srcVec = new cv.MatVector();
+            srcVec.push_back(img);
+            cv.calcHist(srcVec, [0, 1], mask, hist, [180, 256], [0, 180, 0, 256]);
+            cv.normalize(hist, hist, 0, 255, cv.NORM_MINMAX);
+            cv.calcBackProject(srcVec, [0, 1], hist, backproj, [0, 180, 0, 256], 1);
+            let ksize = new cv.Size(10, 10);
+            let anchor = new cv.Point(-1, -1);
+            disc = cv.getStructuringElement(cv.MORPH_ELLIPSE, ksize, anchor);
+            cv.filter2D(backproj, res, -1, disc, anchor, 0, cv.BORDER_DEFAULT);
+            //cv.filter2D(dst, -1, disc, dst)
+            let gsize = new cv.Size(11, 11);
+            cv.GaussianBlur(res, res, gsize, 0, 0, cv.BORDER_DEFAULT);
+            //blur = cv.GaussianBlur(dst, (11, 11), 0)
+            cv.medianBlur(res, res, 15);
+            //blur = cv.medianBlur(blur, 15)
+            cv.threshold(res, thresh, 0, 255, cv.THRESH_BINARY + cv.THRESH_OTSU);
+            //thresh = cv.threshold(blur, 0, 255, cv.THRESH_BINARY + cv.THRESH_OTSU)[1]
+            //cv.merge(thresh[0], thresh[0]);
+            let rgba = new cv.MatVector();
+            rgba.push_back(thresh); rgba.push_back(thresh); rgba.push_back(thresh);
+            cv.merge(rgba, thresh);
+            cv.cvtColor(thresh, thresh, cv.COLOR_BGR2GRAY)
+            //thresh = thresh[y: y + h, x: x + w];
+            let contours = new cv.MatVector();
+            let hierarchy = new cv.Mat();
+            // You can try more different parameters
+            cv.findContours(thresh, contours, hierarchy, cv.RETR_TREE, cv.CHAIN_APPROX_NONE);
+            //contours = cv.findContours(thresh.copy(), cv.RETR_TREE, cv.CHAIN_APPROX_NONE)[0]
+            var arr = [contours.get(0), thresh];
+            return arr;
+        }
+        function onCvLoaded() {
+            console.log('cv', cv);
+            cv.onRuntimeInitialized = onReady;
+        }
+
+        const video = document.getElementById('video');
+        const actionBtn = document.getElementById('actionBtn');
+        const width = 300;
+        const height = 225;
+        const FPS = 30;
+        let stream;
+        let streaming = false;
+        function onReady() {
+            let src;
+            let dst;
+            const cap = new cv.VideoCapture(video);
+            actionBtn.addEventListener('click', () => {
+                if (streaming) {
+                    stop();
+                    actionBtn.textContent = 'Start';
+                } else {
+                    start();
+                    actionBtn.textContent = 'Stop';
+                }
+            });
+            function start() {
+                navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+                    .then(_stream => {
+                        stream = _stream;
+                        console.log('stream', stream);
+                        video.srcObject = stream;
+                        video.play();
+                        streaming = true;
+                        src = new cv.Mat(height, width, cv.CV_8UC4);
+                        dst = new cv.Mat(height, width, cv.CV_8UC1);
+                        setTimeout(processVideo, 0)
+                    })
+                    .catch(err => console.log(`An error occurred: ${err}`));
+            }
+
+            function stop() {
+                if (video) {
+                    video.pause();
+                    video.srcObject = null;
+                }
+                if (stream) {
+                    stream.getVideoTracks()[0].stop();
+                }
+                streaming = false;
+            }
+
+            function processVideo() {
+                if (!streaming) {
+                    src.delete();
+                    dst.delete();
+                    return;
+                }
+
+                const begin = Date.now();
+                cap.read(src)
+                let dsize = new cv.Size(640, 480);
+                cv.resize(src, dst, dsize, 0, 0, cv.INTER_AREA);
+                cv.flip(dst, dst, 1);
+                cv.imshow('canvasOutput', dst);
+                var arr = new get_img_contour_thresh(dst);
+                //cv.rectangle(arr[1], (420, 140), (430, 150), (0, 255, 0), 2);
+                //cv.cvtColor(dst, dst, cv.COLOR_RGBA2GRAY);
+                //let rect = new cv.Rect(100, 100, 300, 300);
+                //arr[1] = arr[1].roi(rect);
+
+                cv.imshow('thresh', arr[1]);
+                const delay = 1000 / FPS - (Date.now() - begin);
+                setTimeout(processVideo, delay);
+            }
+        } */
+    </script>-->
+
+</body>
+
+</html>

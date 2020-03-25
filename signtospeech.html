@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Project SignTheta</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="icon" href="images/signtheta.png">
+</head>
+
+<body class="is-preload">
+
+    <!-- Header -->
+    <header id="header">
+        <a class="logo" href="index.html">SignTheta</a>
+        <navi>
+            <a href="#menu">Menu</a>
+        </navi>
+    </header>
+
+    <!-- Nav -->
+    <navi id="menu">
+        <ul class="links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="signtospeech.html">Sign language to speech</a></li>
+            <li><a href="speechtosign.html">Speech to sign language</a></li>
+        </ul>
+    </navi>
+
+    <!-- Heading -->
+    <div id="heading">
+        <h1>Sign Language Recognition</h1>
+    </div>
+
+    <!-- Highlights -->
+    <section class="wrapper">
+        <div class="inner">
+            <header class="special">
+                <p>Set the background before starting recognition
+                </p>
+            </header>
+            <div class="highlights">
+                <section>
+                    <div class="content">
+                        <header>
+                            <a href="#" onclick="recognize(); return false;" class="icon fa-vcard-o"><span
+                                    class="label">Icon</span></a>
+                            <h3>Sign language to speech</h3>
+                        </header>
+                        <p>Translate the sign language to corresponding english speech</p>
+                    </div>
+                </section>
+                <section>
+                    <div class="content">
+                        <header>
+                            <a href="#" onclick="sethist(); return false;" class="icon fa-files-o"><span
+                                    class="label">Icon</span></a>
+                            <h3>Set Hand histogram</h3>
+                        </header>
+                        <p>Set the background settings</p>
+                    </div>
+                </section>
+                <section>
+                    <div class="content">
+                        <header>
+                            <a href="https://www.youtube.com/channel/UC3AcGIlqVI4nJWCwHgHFXtg?ab_channel=ISLRTCNEWDELHI"
+                                class="icon fa-paper-plane-o"><span class="label">Icon</span></a>
+                            <h3>Learn Sign Language</h3>
+                        </header>
+                        <p>Full access to resources for learning sign language </p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="cta" class="wrapper">
+        <div class="inner">
+            <h2>Sign Language - A beautiful expressive language</h2>
+            <p>People with hearing loss and speech impairement cannot use acoustic languages for their communication.
+                Sign Language is a language that conveys the message by using body language instead of the acoustic
+                words.
+                There are around 466 million people worldwide with hearing loss and 34 million of these are children.
+                World Health Organization (WHO) ‘‘factsheet’’ states that teaching sign language will benefit children
+                with
+                hearing loss.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="inner">
+            <div class="content">
+                <section>
+                    <h3>Sign Language is a beautiful and expressive language</h3>
+                    <p> Sign Language conveys the message by using body language instead of the acoustic words.
+                        There are around 466 million people worldwide with hearing loss and 34 million of these are
+                        children.
+                        WHO factsheet states that teaching sign language will benefit children with hearing loss.</p>
+                </section>
+                <section>
+                    <h4>SignTheta features</h4>
+                    <ul class="alt">
+                        <li><a href="#">Sign language recognition.</a></li>
+                        <li><a href="#">Speech to sign language conversion.</a></li>
+                        <li><a href="#">Learning sign language.</a></li>
+                        <!--<li><a href="#">Dolor pulvinar magna etiam.</a></li>-->
+                    </ul>
+                </section>
+                <section>
+                    <h4>Connect with us</h4>
+                    <ul class="plain">
+                        <li><a href="#"><i class="icon fa-twitter">&nbsp;</i>Twitter</a></li>
+                        <li><a href="#"><i class="icon fa-facebook">&nbsp;</i>Facebook</a></li>
+                        <li><a href="#"><i class="icon fa-instagram">&nbsp;</i>Instagram</a></li>
+                        <li><a href="#"><i class="icon fa-github">&nbsp;</i>Github</a></li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        var HttpClient = function () {
+            this.get = function (aUrl, aCallback) {
+                var anHttpRequest = new XMLHttpRequest();
+                anHttpRequest.onreadystatechange = function () {
+                    if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
+                        aCallback(anHttpRequest.responseText);
+                }
+                anHttpRequest.open("GET", aUrl, false);
+                anHttpRequest.send();
+
+            }
+        };
+        function sethist() {
+            // console.log("$$ 1");
+            var client = new HttpClient();
+            client.get('http://127.0.0.1:5000/sethist', function (response) {
+                console.log(response);
+            });
+        }
+        // console.log("$$ 4");
+
+        //document.getElementById('isl').innerHTML = final_response['isl_text_string'];
+        //document.getElementById('speech_').innerHTML = speech; 
+        //return final_response['pre_process_string'];
+        function recognize() {
+            // console.log("$$ 1");
+            var client = new HttpClient();
+            client.get('http://127.0.0.1:5000/recognize-gesture', function (response) {
+                console.log(response);
+            });
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>SignTheta - Speech to Sign</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <link rel="icon" href="images/signtheta.png">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script src="js/ie-emulation-modes-warning.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Baloo" rel="stylesheet">
+    <!-- <link href="css/custom.css" rel="stylesheet">-->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Access-Control-Allow-Methods" content="GET">
+    <link rel="stylesheet" href="assets/css/cwasa.css" />
+    <script type="text/javascript" src="js/allcsa.js"></script>
+    <script language="javascript">
+        // Initial configuration
+        var initCfg = {
+            "avsbsl": ["luna", "siggi", "anna", "marc", "francoise"],
+            "avSettings": { "avList": "avsbsl", "initAv": "marc" }
+        };
+
+        // global variable to store the sigmal list
+        var sigmlList = null;
+
+        // global variable to tell if avatar is ready or not
+        var tuavatarLoaded = false;
+    </script>
+
+    <script type="text/javascript">
+        function submit() {
+            document.getElementById("startrunning").click(); // Simulates button click
+            document.submitForm.submit(); // Submits the form without the button
+        }
+    </script>
+
+    <script src="https://www.google.com/jsapi" type="text/javascript"></script>
+    <script type="text/javascript">
+        google.load("elements", "1", {
+            packages: "transliteration"
+        });
+        function onLoad() {
+            var options = {
+                sourceLanguage: google.elements.transliteration.LanguageCode.ENGLISH,
+                destinationLanguage: [google.elements.transliteration.LanguageCode.HINDI],
+                shortcutKey: 'ctrl+g',
+                transliterationEnabled: true
+            };
+            var control = new google.elements.transliteration.TransliterationControl(options);
+            // control.makeTransliteratable(['transliterateTextarea']);
+
+        }
+        google.setOnLoadCallback(onLoad);
+        function myread() {
+            var text = document.conversion.transliterateTextarea;
+            var tcontent = text.value;
+            window.alert(tcontent);
+            return tcontent;
+        }
+    </script>
+    <script language="javascript" src="js/animationPlayer.js"></script>
+    <!--<style type="text/css">
+        body {
+            overflow-y: hidden !important;
+            overflow-x: hidden !important;
+        }
+    </style>-->
+    <link rel="stylesheet" href="assets/css/main.css" />
+</head>
+
+<body onload="CWASA.init(initCfg);">
+    <!-- Header -->
+    <header id="header">
+        <a class="logo" href="index.html">SignTheta</a>
+        <navi>
+            <a href="#menu">Menu</a>
+        </navi>
+    </header>
+
+    <!-- navi -->
+    <navi id="menu">
+        <ul class="links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="signtospeech.html">Sign language to speech</a></li>
+            <li><a href="speechtosign.html">Speech to sign language</a></li>li>
+        </ul>
+    </navi>
+
+    <!-- Heading -->
+    <div id="heading">
+        <h1>Speech to Sign Language conversion</h1>
+    </div>
+    <section id="main" class="wrapper">
+        <div class="inner">
+            <div class="content">
+                <div class="row">
+                    <div class="col-6 col-12-medium">
+                        <div id="loading">
+                            <span style="background-color:#ebf8a4; padding: 8px 20px;">Loading
+                                ... Please
+                                wait...</span>
+                        </div>
+                        <!--<div style="position: absolute;top: 50%;left: 0;right: 0;margin: auto;-webkit-transform: translateY(-50%);-ms-transform: translateY(-50%);transform: translateY(-50%);box-sizing: border-box;width: 50%;height: 85%;padding: 15px;">-->
+
+                        <div class="CWASAAvatar av0"></div>
+
+                        <p class="alert-warning text-center" id="textHint"></p>
+
+                        <!--<span class="CWASAAvMenu av0"></span>
+                        
+                                    <input type="button" value="Sign" class="bttnPlaySiGMLURL av0" />
+                                    <input type="button" value="Stop" class="bttnStop av0" />
+                        <span class="CWASASpeed av0"></span>
+                        <br />
+                        <span style="font-size: 90%;">
+                                        Sign/Frame:
+                                        <input class="txtSF av0" value="0/0" type="text">
+                                        Gloss:
+                                        <input class="txtGloss av0" value="[none]" type="text">
+                                    </span>-->
+                        <!--  CachedSiGML URL  -->
+                        <input type="text" id="URLText" style= "visibility: hidden" class="txtSiGMLURL av0 undisplayed" value="" />
+                        <script language="text/javascript">
+                            // Set default sign
+                            setSiGMLURL("SignFiles/hello.sigml");
+                        </script>
+                    </div>
+                    <div class="col-6 col-12-medium">
+                        <!--<form id="inputText">
+                                    <input id="dom-target" type="text" name="firstname" hidden><br>
+                                </form>-->
+                        <div class="content">
+                            <div id="speech_recognizer">
+                                <header>
+                                    <a id="speech_recognizer" onclick="startDictation()"
+                                        class="btn-floating btn-large waves-effect red"><i
+                                            class="large material-icons">mic</i></a>
+                                </header>
+                                <p class="text-center">Click to Speak</p>
+                            </div>
+                            <div id="speech_loader">
+                                <img src="images/speechloader.gif" style="width: 80%; height:80%;">
+                                <p class="text-center" style=" font-size: 18px;">Listening...</p>
+                            </div>
+                            <div id="loader">
+                                <img src="images/loader.gif" class="text-center" style="width: 100%; height: 100%;">
+                                <p class="text-center" style=" font-size: 18px;">Processing...</p>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <h4>Result</h4>
+                            <ul class="alt">
+                                <li>
+                                    <div id="speech">
+                                        <strong><span id="speech_text">Speech</span></strong>
+                                        <div><span id="speech_"></span></div>
+                                    </div>
+                                </li>
+                                <li><strong><span id="isl_text">Indian Sign Language</span></strong>
+                                    <div id="isl"></div>
+                                </li>
+                                <li>
+                                    <div id="debuggercontainer" hidden>
+                                        strong><span id="debugger_text">Debugger</span></strong>
+                                        <div id="debugger"></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="inner">
+            <div class="content">
+                <section>
+                    <h3>Sign Language is a beautiful and expressive language</h3>
+                    <p> Sign Language conveys the message by using body language instead of the acoustic words.
+                        There are around 466 million people worldwide with hearing loss and 34 million of these are
+                        children.
+                        WHO factsheet states that teaching sign language will benefit children with hearing loss.</p>
+                </section>
+                <section>
+                    <h4>SignAll features</h4>
+                    <ul class="alt">
+                        <li><a href="#">Sign language recognition.</a></li>
+                        <li><a href="#">Speech to sign language conversion.</a></li>
+                        <li><a href="#">Learning sign language.</a></li>
+                        <!--<li><a href="#">Dolor pulvinar magna etiam.</a></li>-->
+                    </ul>
+                </section>
+                <section>
+                    <h4>Connect with us</h4>
+                    <ul class="plain">
+                        <li><a href="#"><i class="icon fa-twitter">&nbsp;</i>Twitter</a></li>
+                        <li><a href="#"><i class="icon fa-facebook">&nbsp;</i>Facebook</a></li>
+                        <li><a href="#"><i class="icon fa-instagram">&nbsp;</i>Instagram</a></li>
+                        <li><a href="#"><i class="icon fa-github">&nbsp;</i>Github</a></li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script type="text/javascript" src="js/player.js"></script>
+    <script type="text/javascript" src="js/handler.js"></script>
+
+</body>
+
+</html>
