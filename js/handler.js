@@ -22,20 +22,7 @@
         }
     }, 1000);
 
-    // code to animate tabs
-
-    alltabhead = ["menu1-h", "menu2-h", "menu3-h", "menu4-h"];
-    alltabbody = ["menu1", "menu2", "menu3", "menu4"];
-
-    function activateTab(tabheadid, tabbodyid)
-    {
-        for(x = 0; x < alltabhead.length; x++)
-            $("#"+alltabhead[x]).css("background-color", "white");
-        $("#"+tabheadid).css("background-color", "#d5d5d5");
-        for(x = 0; x < alltabbody.length; x++)
-            $("#"+alltabbody[x]).hide();
-        $("#"+tabbodyid).show();
-    }
+    
 
     function getParsedText(speech) {
         // console.log("$$ 1");
@@ -64,7 +51,7 @@
         document.getElementById('speech_').innerHTML = speech; 
         return final_response['pre_process_string'];
     }
-    activateTab("menu1-h", "menu1"); // activate first menu by default
+ 
     function startDictation() {
         $('#speech_recognizer').hide();
         $("#speech_loader").show();

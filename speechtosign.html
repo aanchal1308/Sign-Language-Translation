@@ -13,14 +13,11 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
     <script src="js/ie-emulation-modes-warning.js"></script>
-
+    
     <link href="https://fonts.googleapis.com/css?family=Baloo" rel="stylesheet">
-    <!-- <link href="css/custom.css" rel="stylesheet">-->
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
@@ -74,12 +71,6 @@
         }
     </script>
     <script language="javascript" src="js/animationPlayer.js"></script>
-    <!--<style type="text/css">
-        body {
-            overflow-y: hidden !important;
-            overflow-x: hidden !important;
-        }
-    </style>-->
     <link rel="stylesheet" href="assets/css/main.css" />
 </head>
 
@@ -109,20 +100,15 @@
         <div class="inner">
             <div class="content">
                 <div class="row">
-                    <div class="col-6 col-12-medium">
+                    <div style="width: 60%; text-align:center;">
                         <div id="loading">
                             <span style="background-color:#ebf8a4; padding: 8px 20px;">Loading
-                                ... Please
-                                wait...</span>
+                                ... Please wait...</span>
                         </div>
-                        <!--<div style="position: absolute;top: 50%;left: 0;right: 0;margin: auto;-webkit-transform: translateY(-50%);-ms-transform: translateY(-50%);transform: translateY(-50%);box-sizing: border-box;width: 50%;height: 85%;padding: 15px;">-->
-
                         <div class="CWASAAvatar av0"></div>
+                        <h2 class="alert-warning" id="textHint"></h2>
 
-                        <p class="alert-warning text-center" id="textHint"></p>
-
-                        <!--<span class="CWASAAvMenu av0"></span>
-                        
+                        <!--<span class="CWASAAvMenu av0"></span>                        
                                     <input type="button" value="Sign" class="bttnPlaySiGMLURL av0" />
                                     <input type="button" value="Stop" class="bttnStop av0" />
                         <span class="CWASASpeed av0"></span>
@@ -133,6 +119,7 @@
                                         Gloss:
                                         <input class="txtGloss av0" value="[none]" type="text">
                                     </span>-->
+                        
                         <!--  CachedSiGML URL  -->
                         <input type="text" id="URLText" style= "visibility: hidden" class="txtSiGMLURL av0 undisplayed" value="" />
                         <script language="text/javascript">
@@ -140,34 +127,30 @@
                             setSiGMLURL("SignFiles/hello.sigml");
                         </script>
                     </div>
-                    <div class="col-6 col-12-medium">
+                    <div style="width: 40%; font-size: 18px ">
                         <!--<form id="inputText">
                                     <input id="dom-target" type="text" name="firstname" hidden><br>
                                 </form>-->
-                        <div class="content">
-                            <div id="speech_recognizer">
-                                <header>
-                                    <a id="speech_recognizer" onclick="startDictation()"
-                                        class="btn-floating btn-large waves-effect red"><i
-                                            class="large material-icons">mic</i></a>
-                                </header>
-                                <p class="text-center">Click to Speak</p>
+                        <div class="content" style="text-align: center; ">
+                            <div id="speech_recognizer" >                             
+                                <a id="speech_recognizer" onclick="startDictation()" class=" waves-effect">
+                                    <i class="large material-icons">mic</i></a>                               
+                                <strong><p class="text-center">Click to Speak</p></strong>
                             </div>
                             <div id="speech_loader">
                                 <img src="images/speechloader.gif" style="width: 80%; height:80%;">
-                                <p class="text-center" style=" font-size: 18px;">Listening...</p>
+                                <h3 class="text-center" >Listening..</h3>
                             </div>
                             <div id="loader">
                                 <img src="images/loader.gif" class="text-center" style="width: 100%; height: 100%;">
-                                <p class="text-center" style=" font-size: 18px;">Processing...</p>
+                                <h3 class="text-center" >Processing..</h3>
                             </div>
                         </div>
-                        <div class="content">
-                            <h4>Result</h4>
+                        <div class="content" style="text-align: center;">
                             <ul class="alt">
                                 <li>
                                     <div id="speech">
-                                        <strong><span id="speech_text">Speech</span></strong>
+                                        <strong><span id="speech_text">Text</span></strong>
                                         <div><span id="speech_"></span></div>
                                     </div>
                                 </li>
@@ -176,7 +159,7 @@
                                 </li>
                                 <li>
                                     <div id="debuggercontainer" hidden>
-                                        strong><span id="debugger_text">Debugger</span></strong>
+                                        <strong><span id="debugger_text">Debugger</span></strong>
                                         <div id="debugger"></div>
                                     </div>
                                 </li>
@@ -205,16 +188,6 @@
                         <li><a href="#">Sign language recognition.</a></li>
                         <li><a href="#">Speech to sign language conversion.</a></li>
                         <li><a href="#">Learning sign language.</a></li>
-                        <!--<li><a href="#">Dolor pulvinar magna etiam.</a></li>-->
-                    </ul>
-                </section>
-                <section>
-                    <h4>Connect with us</h4>
-                    <ul class="plain">
-                        <li><a href="#"><i class="icon fa-twitter">&nbsp;</i>Twitter</a></li>
-                        <li><a href="#"><i class="icon fa-facebook">&nbsp;</i>Facebook</a></li>
-                        <li><a href="#"><i class="icon fa-instagram">&nbsp;</i>Instagram</a></li>
-                        <li><a href="#"><i class="icon fa-github">&nbsp;</i>Github</a></li>
                     </ul>
                 </section>
             </div>

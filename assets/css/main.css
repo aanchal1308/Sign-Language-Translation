@@ -243,7 +243,7 @@ hr {
 /* Inner */
 .inner {
   margin: 0 auto;
-  width: 75rem;
+  width: 85rem;
   max-width: calc(100% - 6rem); }
   @media screen and (max-width: 480px) {
     .inner {
@@ -1780,12 +1780,12 @@ ul.icons {
 
 /* Wrapper */
 .wrapper {
-  padding: 8rem 0 6rem 0 ;
+  padding: 3rem 0 2rem 0 ;
   position: relative;
   z-index: 1; }
   @media screen and (max-width: 1280px) {
     .wrapper {
-      padding: 4rem 0 2rem 0 ; } }
+      padding: 3rem 0 2rem 0 ; } }
   @media screen and (max-width: 736px) {
     .wrapper {
       padding: 3rem 0 1rem 0 ; } }
@@ -1797,7 +1797,7 @@ ul.icons {
 #banner {
   -ms-flex-align: center;
   -ms-flex-pack: center;
-  background-color: #111111;
+  background-color: #291bce;
   color: rgba(255, 255, 255, 0.5);
   -moz-align-items: center;
   -webkit-align-items: center;
@@ -2350,9 +2350,9 @@ ul.icons {
     display: -ms-flex;
     display: flex; }
     #footer .content section {
-      width: 25%; }
+      width: 40%; }
       #footer .content section:first-child {
-        width: 50%;
+        width: 60%;
         padding-right: 4rem; }
       #footer .content section:last-child {
         padding-left: 4rem; }
@@ -2485,7 +2485,7 @@ body {
 #heading {
   -ms-flex-align: center;
   -ms-flex-pack: center;
-  background-color: #111111;
+  background-color: #291bce;
   color: rgba(255, 255, 255, 0.5);
   -moz-align-items: center;
   -webkit-align-items: center;
@@ -2499,14 +2499,14 @@ body {
   -webkit-justify-content: center;
   -ms-justify-content: center;
   justify-content: center;
-  background-image: linear-gradient(rgba(17, 17, 17, 0.25), rgba(17, 17, 17, 0.25)), url("../../images/banner.jpg");
+  background-image: linear-gradient(rgba(17, 17, 17, 0.25), rgba(17, 17, 17, 0.25));
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   border-top: 0;
   display: -ms-flexbox;
-  height: 15rem !important;
-  min-height: 15rem;
+  height: 12rem !important;
+  min-height: 12rem;
   overflow: hidden;
   position: relative;
   text-align: center;
@@ -2666,7 +2666,7 @@ body {
   border-radius: 4px;
   box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.025);
   margin-bottom: 2rem;
-  padding: 3rem; }
+  padding: 2rem; }
   @media screen and (max-width: 980px) {
     #main .content {
       padding: 2rem; } }
