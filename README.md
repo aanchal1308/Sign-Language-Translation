@@ -4,7 +4,7 @@ The interface works in two phases,
 * First, recognizes speech and converts it to text using JavaScript Web Speech API 
 * Secondly, uses Machine based translation to translate English into ISL based grammar. Semi-structured parse tree of English text is modified to represent parse tree of ISL based on bi-linguistic rules.
 
-![Screenshot](https://github.com/aanchal1308/MajorProject/images/Screenshot.png)
+![Screenshot](https://github.com/aanchal1308/MajorProject/blob/master/images/screenshot.png)
 ## Installation Guide
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
