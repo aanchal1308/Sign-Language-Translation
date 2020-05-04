@@ -1,4 +1,4 @@
-SignTheta - Two way Sign Language Translation
+# SignTheta - Two way Sign Language Translation
 A web based application which accepts Audio/ Voice as input and converts it to corresponding Sign Language for Deaf people.
 The interface works in two phases, 
 * First, recognizes speech and converts it to text using JavaScript Web Speech API 
